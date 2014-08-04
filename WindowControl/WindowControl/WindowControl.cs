@@ -36,13 +36,16 @@ namespace Controls
             outerContainer.ColumnDefinitions.Add(new ColumnDefinition());
             outerContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
 
+            var borderSize = SystemInformation.BorderSize;
+
             var windowContentContainer = new ContentPresenter();
+            windowContentContainer.Margin = new Thickness(borderSize.Width, borderSize.Height, borderSize.Width,
+                borderSize.Height);
             Grid.SetRowSpan(windowContentContainer, 3);
             Grid.SetColumnSpan(windowContentContainer, 3);
 
             var coloredBorder = new Border();
 
-            var borderSize = SystemInformation.BorderSize;
             coloredBorder.BorderThickness = new Thickness(borderSize.Width, borderSize.Height, borderSize.Width,
                 borderSize.Height);
             Grid.SetRowSpan(coloredBorder, 3);
