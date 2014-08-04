@@ -26,6 +26,8 @@ namespace Controls
             ResizeMode = ResizeMode.NoResize;
             WindowStyle = WindowStyle.None;
 
+            SnapsToDevicePixels = true;
+
             var outerContainer = new Grid();
 
             outerContainer.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
