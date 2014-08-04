@@ -37,8 +37,8 @@ namespace Controls
             outerContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
 
             var windowContentContainer = new ContentPresenter();
-            Grid.SetColumn(windowContentContainer, 1);
-            Grid.SetRow(windowContentContainer, 1);
+            Grid.SetRowSpan(windowContentContainer, 3);
+            Grid.SetColumnSpan(windowContentContainer, 3);
 
             var coloredBorder = new Border();
 
