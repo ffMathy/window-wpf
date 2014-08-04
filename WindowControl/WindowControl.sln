@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowControl", "WindowControl\WindowControl.csproj", "{EBC207C3-2F20-4E09-B7C8-AF833889C412}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowControl.Sample", "WindowControl.Sample\WindowControl.Sample.csproj", "{37681941-5877-430D-8734-014A1C49EB82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBC207C3-2F20-4E09-B7C8-AF833889C412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC207C3-2F20-4E09-B7C8-AF833889C412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC207C3-2F20-4E09-B7C8-AF833889C412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC207C3-2F20-4E09-B7C8-AF833889C412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37681941-5877-430D-8734-014A1C49EB82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37681941-5877-430D-8734-014A1C49EB82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37681941-5877-430D-8734-014A1C49EB82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37681941-5877-430D-8734-014A1C49EB82}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
