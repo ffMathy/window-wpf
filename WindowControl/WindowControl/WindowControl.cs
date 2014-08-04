@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -13,10 +16,10 @@ namespace Controls
     public class WindowControl : Window
     {
         private readonly Border _coloredBorder;
-
         private readonly Grid _outerContainer;
-
         private readonly ContentPresenter _windowContentContainer;
+
+        private IntPtr _windowHandle;
 
         public WindowControl()
         {
@@ -46,7 +49,6 @@ namespace Controls
             Grid.SetColumnSpan(coloredBorder, 3);
 
             outerContainer.Children.Add(coloredBorder);
-
             outerContainer.Children.Add(windowContentContainer);
 
             _windowContentContainer = windowContentContainer;
@@ -79,6 +81,7 @@ namespace Controls
             upperLeft.Width = resizeBorderSize.Width;
             upperLeft.Height = resizeBorderSize.Height;
             upperLeft.Cursor = Cursors.SizeNWSE;
+            upperLeft.MouseDown += MouseDownUpperLeft;
             Grid.SetRow(upperLeft, 0);
             Grid.SetColumn(upperLeft, 0);
 
@@ -86,6 +89,7 @@ namespace Controls
             upperRight.Width = resizeBorderSize.Width;
             upperRight.Height = resizeBorderSize.Height;
             upperRight.Cursor = Cursors.SizeNESW;
+            upperRight.MouseDown += MouseDownUpperRight;
             Grid.SetRow(upperRight, 0);
             Grid.SetColumn(upperRight, 2);
 
@@ -93,6 +97,7 @@ namespace Controls
             lowerLeft.Width = resizeBorderSize.Width;
             lowerLeft.Height = resizeBorderSize.Height;
             lowerLeft.Cursor = Cursors.SizeNESW;
+            lowerLeft.MouseDown += MouseDownLowerLeft;
             Grid.SetRow(lowerLeft, 2);
             Grid.SetColumn(lowerLeft, 0);
 
@@ -100,6 +105,7 @@ namespace Controls
             lowerRight.Width = resizeBorderSize.Width;
             lowerRight.Height = resizeBorderSize.Height;
             lowerRight.Cursor = Cursors.SizeNWSE;
+            lowerRight.MouseDown += MouseDownLowerRight;
             Grid.SetRow(lowerRight, 2);
             Grid.SetColumn(lowerRight, 2);
 
@@ -107,24 +113,28 @@ namespace Controls
             var left = CreateResizingEdge();
             left.Width = resizeBorderSize.Width;
             left.Cursor = Cursors.SizeWE;
+            left.MouseDown += MouseDownLeft;
             Grid.SetRow(left, 1);
             Grid.SetColumn(left, 0);
 
             var right = CreateResizingEdge();
             right.Width = resizeBorderSize.Width;
             right.Cursor = Cursors.SizeWE;
+            right.MouseDown += MouseDownRight;
             Grid.SetRow(right, 1);
             Grid.SetColumn(right, 2);
 
             var upper = CreateResizingEdge();
             upper.Height = resizeBorderSize.Height;
             upper.Cursor = Cursors.SizeNS;
+            upper.MouseDown += MouseDownUpper;
             Grid.SetRow(upper, 0);
             Grid.SetColumn(upper, 1);
 
             var lower = CreateResizingEdge();
             lower.Height = resizeBorderSize.Height;
             lower.Cursor = Cursors.SizeNS;
+            lower.MouseDown += MouseDownLower;
             Grid.SetRow(lower, 2);
             Grid.SetColumn(lower, 1);
 
@@ -139,10 +149,62 @@ namespace Controls
             _outerContainer.Children.Add(lowerRight);
         }
 
+        private void ResizeWindow(NativeMethods.ResizeDirection direction)
+        {
+            if (_windowHandle != default(IntPtr))
+            {
+                NativeMethods.ReleaseCapture();
+                NativeMethods.SendMessage(_windowHandle, NativeMethods.WM_NCLBUTTONDOWN,
+                    61440 + (int)direction, 0);
+            }
+        }
+
+        private void MouseDownLowerLeft(object sender, MouseButtonEventArgs e)
+        {
+            ResizeWindow(NativeMethods.ResizeDirection.BottomLeft);
+        }
+
+        private void MouseDownLowerRight(object sender, MouseButtonEventArgs e)
+        {
+            ResizeWindow(NativeMethods.ResizeDirection.BottomRight);
+        }
+
+        private void MouseDownRight(object sender, MouseButtonEventArgs e)
+        {
+            ResizeWindow(NativeMethods.ResizeDirection.Right);
+        }
+
+        private void MouseDownLower(object sender, MouseButtonEventArgs e)
+        {
+            ResizeWindow(NativeMethods.ResizeDirection.Bottom);
+        }
+
+        private void MouseDownLeft(object sender, MouseButtonEventArgs e)
+        {
+            ResizeWindow(NativeMethods.ResizeDirection.Left);
+        }
+
+        private void MouseDownUpper(object sender, MouseButtonEventArgs e)
+        {
+            ResizeWindow(NativeMethods.ResizeDirection.Top);
+        }
+
+        private void MouseDownUpperRight(object sender, MouseButtonEventArgs e)
+        {
+            ResizeWindow(NativeMethods.ResizeDirection.TopRight);
+        }
+
+        private void MouseDownUpperLeft(object sender, MouseButtonEventArgs e)
+        {
+            ResizeWindow(NativeMethods.ResizeDirection.TopLeft);
+        }
+
         void WindowControl_Loaded(object sender, RoutedEventArgs e)
         {
             AeroResourceInitializer.Initialize();
-            _coloredBorder.SetResourceReference(Border.BorderBrushProperty, "AeroBrushDark");
+            _coloredBorder.SetResourceReference(Border.BorderBrushProperty, "AeroBrushDark"); 
+            
+            _windowHandle = new WindowInteropHelper(this).Handle;
         }
 
         public new object Content
