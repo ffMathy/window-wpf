@@ -161,41 +161,49 @@ namespace Controls
 
         private void MouseDownLowerLeft(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             ResizeWindow(NativeMethods.ResizeDirection.BottomLeft);
         }
 
         private void MouseDownLowerRight(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             ResizeWindow(NativeMethods.ResizeDirection.BottomRight);
         }
 
         private void MouseDownRight(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             ResizeWindow(NativeMethods.ResizeDirection.Right);
         }
 
         private void MouseDownLower(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             ResizeWindow(NativeMethods.ResizeDirection.Bottom);
         }
 
         private void MouseDownLeft(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             ResizeWindow(NativeMethods.ResizeDirection.Left);
         }
 
         private void MouseDownUpper(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             ResizeWindow(NativeMethods.ResizeDirection.Top);
         }
 
         private void MouseDownUpperRight(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             ResizeWindow(NativeMethods.ResizeDirection.TopRight);
         }
 
         private void MouseDownUpperLeft(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             ResizeWindow(NativeMethods.ResizeDirection.TopLeft);
         }
 
